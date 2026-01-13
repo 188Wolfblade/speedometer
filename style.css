@@ -1,6 +1,6 @@
 body {
-    background: #111;
-    color: white;
+    margin: 0;
+    background: transparent;
     font-family: Arial, sans-serif;
 }
 
@@ -8,4 +8,43 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
+    width: 320px;
+    height: 200px;
+    color: white;
+}
+
+#speed {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.unit {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+#gear {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    font-size: 36px;
+    color: #4fc3ff;
+}
+
+#info {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 12px;
+}
+
+#wolf {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.25;
+    z-index: -1;
 }
