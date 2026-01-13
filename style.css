@@ -1,0 +1,11 @@
+body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#speedometer {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
