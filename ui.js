@@ -20,3 +20,18 @@ function updateSpeedo(speed, rpm, gear, fuel, engine) {
 
     drawRPM(rpm);
 }
+
+function drawRPM(rpm) {
+    const canvas = document.getElementById("rpmCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, 200, 200);
+
+    const angle = Math.PI + rpm * Math.PI;
+
+    ctx.beginPath();
+    ctx.arc(100, 100, 80, Math.PI, angle);
+    ctx.strokeStyle = rpm > 0.85 ? "#ff3b3b" : "#00b0ff";
+    ctx.lineWidth = 6;
+    ctx.stroke();
+}
