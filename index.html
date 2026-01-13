@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Speedometer</title>
+    <title>Custom Speedometer</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="speedometer">
 
-    <!-- RPM -->
+    <!-- RPM ANALOG -->
     <canvas id="rpmCanvas" width="200" height="200"></canvas>
 
-    <!-- SPEED -->
+    <!-- SPEED DIGITAL -->
     <div id="speed">
         <span id="speedValue">0</span>
         <span class="unit">MPH</span>
@@ -21,22 +23,31 @@
     <!-- GEAR -->
     <div id="gear">N</div>
 
-    <!-- INFO -->
+    <!-- FUEL & ENGINE -->
     <div id="info">
         <div id="fuel">Fuel: 100%</div>
         <div id="engine">Engine: 100%</div>
     </div>
-<div id="debug"
-     style="font-size:10px; opacity:0.8; margin-top:5px; max-width:300px;">
-    DEBUG: waiting...
+
+    <!-- BACKGROUND SERIGALA -->
+    <img src="wolf.png" id="wolf" alt="wolf background">
+
+    <!-- DEBUG (WAJIB UNTUK TES DATA) -->
+    <div id="debug"
+         style="
+            font-size:10px;
+            opacity:0.8;
+            margin-top:6px;
+            max-width:300px;
+            white-space:pre-wrap;
+         ">
+        DEBUG: waiting...
+    </div>
+
 </div>
 
-    <!-- WOLF BACKGROUND -->
-    <img src="wolf.png" id="wolf">
-
-</div>
-
+<!-- UI LOGIC -->
 <script src="ui.js"></script>
+
 </body>
 </html>
-
