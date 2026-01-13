@@ -1,18 +1,44 @@
 window.addEventListener("message", function (event) {
-    console.log("RAW DATA FROM GTA:", event.data);
-
     const data = event.data;
+
+    document.getElementById("debug").innerText =
+        "RAW DATA:\n" + JSON.stringify(data);
+
     if (!data) return;
 
-    const speed = Math.round(data.speed || data.vehicleSpeed || 0);
-    const rpm = data.rpm || data.vehicleRPM || 0;
-    const gear = data.gear ?? data.currentGear ?? "N";
-    const fuel = Math.round(data.fuel ?? data.vehicleFuel ?? 100);
-    const engine = Math.round(data.engine ?? data.vehicleEngine ?? 100);
+    const speed = Math.round(
+        data.speed ??
+        data.vehicleSpeed ??
+        data.spd ??
+        0
+    );
+
+    const rpm =
+        data.rpm ??
+        data.vehicleRPM ??
+        data.rev ??
+        0;
+
+    const gear =
+        data.gear ??
+        data.currentGear ??
+        "N";
+
+    const fuel = Math.round(
+        data.fuel ??
+        data.vehicleFuel ??
+        100
+    );
+
+    const engine = Math.round(
+        data.engine ??
+        data.vehicleEngine ??
+        100
+    );
 
     updateSpeedo(speed, rpm, gear, fuel, engine);
 });
-("message", function (event) {
+
     const data = event.data;
     if (!data) return;
 
@@ -49,4 +75,5 @@ function drawRPM(rpm) {
     ctx.lineWidth = 6;
     ctx.stroke();
 }
+
 
