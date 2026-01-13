@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Speedometer</title>
@@ -8,7 +8,28 @@
 <body>
 
 <div id="speedometer">
-    <h1>SPEEDOMETER TEST</h1>
+
+    <!-- RPM -->
+    <canvas id="rpmCanvas" width="200" height="200"></canvas>
+
+    <!-- SPEED -->
+    <div id="speed">
+        <span id="speedValue">0</span>
+        <span class="unit">MPH</span>
+    </div>
+
+    <!-- GEAR -->
+    <div id="gear">N</div>
+
+    <!-- INFO -->
+    <div id="info">
+        <div id="fuel">Fuel: 100%</div>
+        <div id="engine">Engine: 100%</div>
+    </div>
+
+    <!-- WOLF BACKGROUND -->
+    <img src="wolf.png" id="wolf">
+
 </div>
 
 <script src="ui.js"></script>
