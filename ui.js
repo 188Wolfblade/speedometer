@@ -1,15 +1,62 @@
+/* ================================
+   SPEEDOMETER UI (JG-WORKS)
+   ================================ */
+
+/* ---------- RPM DRAW ---------- */
+function drawRPM(rpm) {
+    const canvas = document.getElementById("rpmCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Clamp rpm 0.0 - 1.0
+    rpm = Math.max(0, Math.min(1, rpm));
+
+    const startAngle = Math.PI;
+    const endAngle = Math.PI + rpm * Math.PI;
+
+    ctx.beginPath();
+    ctx.arc(100, 100, 80, startAngle, endAngle);
+    ctx.strokeStyle = rpm > 0.85 ? "#ff3b3b" : "#00b0ff";
+    ctx.lineWidth = 6;
+    ctx.stroke();
+}
+
+/* ---------- UPDATE UI ---------- */
+function updateSpeedo(speed, rpm, gear, fuel, engine) {
+    const speedEl = document.getElementById("speedValue");
+    const gearEl = document.getElementById("gear");
+    const fuelEl = document.getElementById("fuel");
+    const engineEl = document.getElementById("engine");
+
+    if (speedEl) speedEl.innerText = speed;
+    if (gearEl) gearEl.innerText = (gear === 0 || gear === "0") ? "N" : gear;
+    if (fuelEl) fuelEl.innerText = `Fuel: ${fuel}%`;
+    if (engineEl) engineEl.innerText = `Engine: ${engine}%`;
+
+    drawRPM(rpm);
+}
+
+/* ---------- ON-SCREEN DEBUG + DATA LISTENER ---------- */
 window.addEventListener("message", function (event) {
     const data = event.data;
 
-    document.getElementById("debug").innerText =
-        "RAW DATA:\n" + JSON.stringify(data);
+    // DEBUG DI LAYAR (karena F12 dikunci)
+    const debugEl = document.getElementById("debug");
+    if (debugEl) {
+        debugEl.innerText =
+            "RAW DATA:\n" + (data ? JSON.stringify(data) : "null");
+    }
 
     if (!data) return;
 
+    /* --------- FIELD MAPPING (AMAN & LENGKAP) --------- */
     const speed = Math.round(
         data.speed ??
         data.vehicleSpeed ??
         data.spd ??
+        data.velocity ??
         0
     );
 
@@ -17,63 +64,28 @@ window.addEventListener("message", function (event) {
         data.rpm ??
         data.vehicleRPM ??
         data.rev ??
+        data.engineRPM ??
         0;
 
     const gear =
         data.gear ??
         data.currentGear ??
+        data.gearIndex ??
         "N";
 
     const fuel = Math.round(
         data.fuel ??
         data.vehicleFuel ??
+        data.fuelLevel ??
         100
     );
 
     const engine = Math.round(
         data.engine ??
         data.vehicleEngine ??
+        data.engineHealth ??
         100
     );
 
     updateSpeedo(speed, rpm, gear, fuel, engine);
 });
-
-    const data = event.data;
-    if (!data) return;
-
-    // Contoh struktur data dari JG-Works
-    const speed = Math.round(data.speed || 0);      // MPH
-    const rpm = data.rpm || 0;                       // 0.0 – 1.0
-    const gear = data.gear ?? "N";
-    const fuel = Math.round(data.fuel ?? 100);
-    const engine = Math.round(data.engine ?? 100);
-
-    updateSpeedo(speed, rpm, gear, fuel, engine);
-});
-
-function updateSpeedo(speed, rpm, gear, fuel, engine) {
-    document.getElementById("speedValue").innerText = speed;
-    document.getElementById("gear").innerText = gear;
-    document.getElementById("fuel").innerText = `Fuel: ${fuel}%`;
-    document.getElementById("engine").innerText = `Engine: ${engine}%`;
-
-    drawRPM(rpm);
-}
-
-function drawRPM(rpm) {
-    const canvas = document.getElementById("rpmCanvas");
-    const ctx = canvas.getContext("2d");
-
-    ctx.clearRect(0, 0, 200, 200);
-
-    const angle = Math.PI + rpm * Math.PI;
-
-    ctx.beginPath();
-    ctx.arc(100, 100, 80, Math.PI, angle);
-    ctx.strokeStyle = rpm > 0.85 ? "#ff3b3b" : "#00b0ff";
-    ctx.lineWidth = 6;
-    ctx.stroke();
-}
-
-
