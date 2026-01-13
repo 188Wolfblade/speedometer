@@ -11,3 +11,12 @@ window.addEventListener("message", function (event) {
 
     updateSpeedo(speed, rpm, gear, fuel, engine);
 });
+
+function updateSpeedo(speed, rpm, gear, fuel, engine) {
+    document.getElementById("speedValue").innerText = speed;
+    document.getElementById("gear").innerText = gear;
+    document.getElementById("fuel").innerText = `Fuel: ${fuel}%`;
+    document.getElementById("engine").innerText = `Engine: ${engine}%`;
+
+    drawRPM(rpm);
+}
